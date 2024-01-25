@@ -1,3 +1,3 @@
 # bookbot
 
-Doing this project for boot.dev
+I'm doing this project for boot.dev
