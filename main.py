@@ -2,34 +2,11 @@ def open_file(path):
     with open(path) as f:
         return f.read()
 
+def count_words(text):
+    return len(text.split())
 
-def count_letters(text):
-    dict = {'a': 0, 
-            'b': 0, 
-            'c': 0,
-            'd': 0,
-            'e': 0,
-            'f': 0,
-            'g': 0,
-            'h': 0,
-            'i': 0,
-            'j': 0,
-            'k': 0,
-            'l': 0,
-            'm': 0,
-            'n': 0,
-            'o': 0,
-            'p': 0,
-            'q': 0,
-            'r': 0,
-            's': 0,
-            't': 0,
-            'u': 0,
-            'v': 0,
-            'w': 0,
-            'x': 0,
-            'y': 0,
-            'z': 0}
+def count_chars(text):
+    dict = {}
     for c in text:
         normalized = c.lower()
         if normalized in dict:
@@ -38,11 +15,33 @@ def count_letters(text):
             dict[normalized] = 1
     return dict
 
+def sortkey(n):
+    return n[1]
+
+
+def sort_char_count(char_count):
+    sorted_list = []
+    for x in char_count:
+        sorted_list.append((x,char_count[x]))
+    sorted_list.sort(reverse = True, key = sortkey)
+    return(sorted_list)
+
+def report(book_path):
+    text = open_file(book_path)
+    word_count = count_words(text)
+    char_count = count_chars(text)
+    sorted_char_count = sort_char_count(char_count)
+    rep = f"{word_count} words found in the document\n\n"
+    for x in sorted_char_count:
+        if not x[0].isalpha():
+            continue
+        rep += f"The '{x[0]}' character was found {x[1]} times\n"
+    return rep
 
 def main():
     book_path = "books/frankenstein.txt"
-    text = open_file(book_path)
-    print("Word count:", len(text.split()))
-    print(count_letters(text))
+    print(f"--- Begin report of {book_path} ---")
+    print(report(book_path))
+    print("--- End report ---")
 
 main()
