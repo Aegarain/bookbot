@@ -1,5 +1,9 @@
+def open_file(path):
+    with open(path) as f:
+        return f.read()
+
 def main():
-    with open("books/frankenstein.txt") as f:
-        file_contents = f.read()
+    book_path = "books/frankenstein.txt"
+    print(len(open_file(book_path).split()))
 
 main()
